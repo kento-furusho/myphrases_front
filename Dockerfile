@@ -9,5 +9,14 @@ ENV HOME=/${WORKDIR} \
     HOST=0.0.0.0 \
     API_URL=${API_URL}
 
-
 WORKDIR ${HOME}
+
+
+COPY package*.json ./
+RUN yarn install
+
+# コンテナにNuxtプロジェクトをコピー
+COPY . ./
+
+RUN yarn run build
+
