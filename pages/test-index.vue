@@ -56,7 +56,7 @@ export default {
   methods: {
     signup () {
       axios
-        .post('http://localhost:3001/api/v1/auth', {
+        .post('$API_URL/api/v1/auth', {
           name: this.name,
           email: this.email,
           password: this.password
@@ -72,7 +72,7 @@ export default {
     },
     signin () {
       axios
-        .post('http://localhost:3001/api/v1/auth/sign_in', {
+        .post('$API_URL/api/v1/auth/sign_in', {
           name: this.name,
           email: this.email,
           password: this.password
@@ -88,7 +88,7 @@ export default {
     },
     signout () {
       axios
-        .delete('http://localhost:3001/api/v1/auth/sign_out', {
+        .delete('$API_URL/api/v1/auth/sign_out', {
           test: { test: 'test' },
           headers: {
             uid: this.uid,
