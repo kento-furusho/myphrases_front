@@ -40,6 +40,7 @@ import axios from 'axios'
 export default {
   data ({ $config }) {
     const apiURL = `${$config.apiURL}`
+    window.console.log($config.apiURL)
     return {
       apiURL,
       name: '',

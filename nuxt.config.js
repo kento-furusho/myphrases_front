@@ -1,6 +1,6 @@
 export default {
   publicRuntimeConfig: {
-    apiURL: process.env.API_URL_PRO || 'http://localhost:3001'
+    apiURL: process.env.VUE_APP_API_URL_PRO || 'http://localhost:3001'
   },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
