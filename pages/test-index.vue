@@ -10,7 +10,7 @@
         <input id="email" v-model="email" type="email">
         <label for="password">password</label>
         <input id="password" v-model="password" type="password">
-        <button @click="signup">
+        <button @click="signup(apiURL)">
           新規登録
         </button>
       </div>
@@ -22,13 +22,13 @@
         <input id="email" v-model="email" type="email">
         <label for="password">password</label>
         <input id="password" v-model="password" type="password">
-        <button @click="signin">
-          SignIn
+        <button @click="signin(apiURL)">
+          ログイン
         </button>
       </div>
     </div>
     <div v-else>
-      <button @click="signout">
+      <button @click="signout(apiURL)">
         ログアウト
       </button>
     </div>
@@ -38,8 +38,10 @@
 <script>
 import axios from 'axios'
 export default {
-  data () {
+  data ({ $config }) {
+    const apiURL = `${$config.apiURL}`
     return {
+      apiURL,
       name: '',
       email: '',
       password: '',
@@ -54,9 +56,9 @@ export default {
     }
   },
   methods: {
-    signup () {
+    signup (apiURL) {
       axios
-        .post('$API_URL/api/v1/auth', {
+        .post(apiURL + '/api/v1/auth', {
           name: this.name,
           email: this.email,
           password: this.password
@@ -70,9 +72,9 @@ export default {
           this.uid = response.headers.uid
         })
     },
-    signin () {
+    signin (apiURL) {
       axios
-        .post('$API_URL/api/v1/auth/sign_in', {
+        .post(apiURL + '/api/v1/auth/sign_in', {
           name: this.name,
           email: this.email,
           password: this.password
@@ -86,9 +88,9 @@ export default {
           this.uid = response.headers.uid
         })
     },
-    signout () {
+    signout (apiURL) {
       axios
-        .delete('$API_URL/api/v1/auth/sign_out', {
+        .delete(apiURL + '/api/v1/auth/sign_out', {
           test: { test: 'test' },
           headers: {
             uid: this.uid,

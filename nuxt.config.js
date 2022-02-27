@@ -1,4 +1,7 @@
 export default {
+  publicRuntimeConfig: {
+    apiURL: process.env.API_URL_PRO || 'http://localhost:3001'
+  },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -25,6 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    'plugins/axios'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
