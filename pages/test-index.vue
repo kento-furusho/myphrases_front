@@ -10,7 +10,7 @@
         <input id="email" v-model="email" type="email">
         <label for="password">password</label>
         <input id="password" v-model="password" type="password">
-        <button @click="signup(apiURL)">
+        <button @click="signup(apiUrl)">
           新規登録
         </button>
       </div>
@@ -22,13 +22,13 @@
         <input id="email" v-model="email" type="email">
         <label for="password">password</label>
         <input id="password" v-model="password" type="password">
-        <button @click="signin(apiURL)">
+        <button @click="signin(apiUrl)">
           ログイン
         </button>
       </div>
     </div>
     <div v-else>
-      <button @click="signout(apiURL)">
+      <button @click="signout(apiUrl)">
         ログアウト
       </button>
     </div>
@@ -38,11 +38,10 @@
 <script>
 import axios from 'axios'
 export default {
-  data ({ $config }) {
-    const apiURL = `${$config.apiURL}`
-    window.console.log($config.apiURL)
+  data ({ $config: { apiUrl } }) {
+    window.console.log({ apiUrl })
     return {
-      apiURL,
+      apiUrl,
       name: '',
       email: '',
       password: '',
@@ -57,9 +56,9 @@ export default {
     }
   },
   methods: {
-    signup (apiURL) {
+    signup (value) {
       axios
-        .post(apiURL + '/api/v1/auth', {
+        .post(value + '/api/v1/auth', {
           name: this.name,
           email: this.email,
           password: this.password
@@ -73,9 +72,9 @@ export default {
           this.uid = response.headers.uid
         })
     },
-    signin (apiURL) {
+    signin (value) {
       axios
-        .post(apiURL + '/api/v1/auth/sign_in', {
+        .post(value + '/api/v1/auth/sign_in', {
           name: this.name,
           email: this.email,
           password: this.password
@@ -89,9 +88,9 @@ export default {
           this.uid = response.headers.uid
         })
     },
-    signout (apiURL) {
+    signout (value) {
       axios
-        .delete(apiURL + '/api/v1/auth/sign_out', {
+        .delete(value + '/api/v1/auth/sign_out', {
           test: { test: 'test' },
           headers: {
             uid: this.uid,
