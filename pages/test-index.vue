@@ -39,7 +39,6 @@
 import axios from 'axios'
 export default {
   data ({ $config: { apiUrl } }) {
-    window.console.log({ apiUrl })
     return {
       apiUrl,
       name: '',
