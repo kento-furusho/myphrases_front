@@ -1,0 +1,11 @@
+<template>
+  <dir>
+    <v-footer
+      absolute
+      dark
+      color="black"
+    >
+      appfooterだお
+    </v-footer>
+  </dir>
+</template>
