@@ -1,6 +1,7 @@
 {
   "menus": {
-    "about": "サイトについて"
+    "about": "サイトについて",
+    "howto": "使い方"
   },
   "title": {
     "signup": "会員登録",

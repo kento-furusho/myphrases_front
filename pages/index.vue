@@ -2,8 +2,10 @@
   <v-app>
     <home-app-bar
       :menus="menus"
+      :img-height="imgHeight"
     />
     <v-img
+      id="scroll-top"
       dark
       src="https://picsum.photos/id/145/1920/1080?blur=4"
       :height="imgHeight"
@@ -41,8 +43,12 @@
           :key="`menu-${i}`"
         >
           <v-col
+            :id="menu.title"
             cols="12"
           >
+            <div
+              :is="`home-${menu.title}`"
+            />
             <v-card flat>
               <v-card-title
                 class="justify-center display-1"
@@ -68,7 +74,8 @@ export default {
     return {
       imgHeight: 500,
       menus: [
-        { title: 'about', subtitle: 'このサイトはポートフォリオです' }
+        { title: 'about', subtitle: 'このサイトはポートフォリオです' },
+        { title: 'howto', subtitle: 'このサイトはこうやって使います' }
       ]
     }
   }
