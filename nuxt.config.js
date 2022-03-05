@@ -77,6 +77,7 @@ export default {
   i18n: {
     locales: ['ja', 'en'],
     defaultLocale: 'ja',
+    strategy: 'no_prefix',
     vueI18n: {
       fallbackLocale: 'ja',
       silentTranslationWarn: true,
