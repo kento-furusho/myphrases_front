@@ -8,10 +8,10 @@
         v-model="isValid"
       >
         <user-form-email
-          :email.sync="params.user.email"
+          :email.sync="email"
         />
         <user-form-password
-          :password.sync="params.user.password"
+          :password.sync="password"
         />
         <v-card-text
           class="px-0"
@@ -22,7 +22,7 @@
             block
             color="appblue"
             class="white--text"
-            @click="login"
+            @click="login(apiUrl)"
           >
             ログインする
           </v-btn>
@@ -32,18 +32,43 @@
   </user-form-card>
 </template>
 <script>
+import axios from 'axios'
 export default {
   layout: 'before-login',
-  data () {
+  data ({ $config: { apiUrl } }) {
     return {
+      apiUrl,
+      name: '',
+      email: '',
+      password: '',
+      uid: '',
+      access_token: '',
+      client: '',
+      title: '',
+      content: '',
+      tasks: [],
+      comment: '',
+      posts: [],
       isValid: false,
-      loading: false,
-      params: { user: { email: '', password: '' } }
+      loading: false
     }
   },
-  method: {
-    login () {
-      this.loading = true
+  methods: {
+    login (value) {
+      axios
+        .post(value + '/api/v1/auth/sign_in', {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+        .then((response) => {
+          localStorage.setItem('access-token', response.headers['access-token'])
+          localStorage.setItem('client', response.headers.client)
+          localStorage.setItem('uid', response.headers.uid)
+          this.access_token = response.headers['access-token']
+          this.client = response.headers.client
+          this.uid = response.headers.uid
+        })
     }
   }
 }

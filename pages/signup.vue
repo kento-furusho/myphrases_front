@@ -8,14 +8,13 @@
         v-model="isValid"
       >
         <user-form-name
-          :name.sync="params.user.name"
+          :name.sync="name"
         />
         <user-form-email
-          :email.sync="params.user.email"
-          placeholder
+          :email.sync="email"
         />
         <user-form-password
-          :password.sync="params.user.password"
+          :password.sync="password"
           set-validation
         />
         <v-btn
@@ -24,7 +23,7 @@
           block
           color="appblue"
           class="white--text"
-          @click="signup"
+          @click="signup(apiUrl)"
         >
           登録する
         </v-btn>
@@ -33,29 +32,43 @@
   </user-form-card>
 </template>
 <script>
+import axios from 'axios'
 export default {
   layout: 'before-login',
-  data () {
+  data ({ $config: { apiUrl } }) {
     return {
+      apiUrl,
+      name: '',
+      email: '',
+      password: '',
+      uid: '',
+      access_token: '',
+      client: '',
+      title: '',
+      content: '',
+      tasks: [],
+      comment: '',
+      posts: [],
       isValid: false,
-      loading: false,
-      params: { user: { name: '', email: '', password: '' } }
+      loading: false
     }
   },
   methods: {
-    signup () {
-      // ここは仮、API通信時に開発
-      this.loading = true
-      setTimeout(() => {
-        this.formReset()
-        this.loading = false
-      }, 1500)
-    },
-    formReset () {
-      this.$refs.form.reset()
-      for (const key in this.params.user) {
-        this.params.user[key] = ''
-      }
+    signup (value) {
+      axios
+        .post(value + '/api/v1/auth', {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+        .then((response) => {
+          localStorage.setItem('access-token', response.headers['access-token'])
+          localStorage.setItem('client', response.headers.client)
+          localStorage.setItem('uid', response.headers.uid)
+          this.access_token = response.headers['access-token']
+          this.client = response.headers.client
+          this.uid = response.headers.uid
+        })
     }
   }
 }
