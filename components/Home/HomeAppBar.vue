@@ -22,8 +22,8 @@
         {{ $t(`menus.${menu.title}`) }}
       </v-btn>
     </v-toolbar-items>
-    <app-signup-button />
-    <app-login-button />
+    <before-login-app-bar-signup-button />
+    <before-login-app-bar-login-button />
     <v-menu
       bottom
       nudge-left="110"

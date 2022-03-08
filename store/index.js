@@ -1,7 +1,14 @@
+const redirectPath = 'phrases'
+
 // 変数
 export const state = () => ({
   styles: {
     homeAppBarHeight: 56
+  },
+  loggedIn: {
+    redirectPath: {
+      name: redirectPath
+    }
   }
 })
 
