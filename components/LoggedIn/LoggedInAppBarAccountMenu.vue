@@ -51,18 +51,65 @@
           {{ $my.pageTitle(menu.name) }}
         </v-list-item-title>
       </v-list-item>
+      <v-list-item @click="logout(apiUrl)">
+        <v-list-item-icon
+          class="mr-2"
+        >
+          <v-icon size="22">
+            mdi-logout-variant
+          </v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>
+          {{ $my.pageTitle('logout') }}
+        </v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
 <script>
+import axios from 'axios'
 export default {
-  data () {
+  data ({ $config: { apiUrl } }) {
     return {
       menus: [
         { name: 'account-settings', icon: 'mdi-account-cog' },
-        { name: 'account-password', icon: 'mdi-lock-outline' },
-        { name: 'logout', icon: 'mdi-logout-variant' }
-      ]
+        { name: 'account-password', icon: 'mdi-lock-outline' }
+      ],
+      apiUrl,
+      name: '',
+      email: '',
+      password: '',
+      uid: '',
+      access_token: '',
+      client: '',
+      title: '',
+      content: '',
+      tasks: [],
+      comment: '',
+      posts: []
+    }
+  },
+  methods: {
+    logout (value) {
+      const token = window.localStorage.getItem('access-token')
+      axios
+        .delete(value + '/api/v1/auth/sign_out', {
+          headers: {
+            uid: window.localStorage.uid,
+            'access-token': token,
+            client: window.localStorage.client
+          }
+        })
+        .then((response) => {
+          window.console.log(response)
+          this.access_token = ''
+          this.client = ''
+          this.uid = ''
+          localStorage.removeItem('uid')
+          localStorage.removeItem('access-token')
+          localStorage.removeItem('client')
+          this.$router.push('/')
+        })
     }
   }
 }

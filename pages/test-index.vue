@@ -88,16 +88,19 @@ export default {
         })
     },
     signout (value) {
+      window.console.log(this.uid)
+      window.console.log(this.access_token)
+      window.console.log(this.client)
       axios
         .delete(value + '/api/v1/auth/sign_out', {
-          test: { test: 'test' },
           headers: {
-            uid: this.uid,
+            uid: window.localStorage.uid,
             'access-token': this.access_token,
             client: this.client
           }
         })
         .then((response) => {
+          window.console.log(response)
           this.access_token = ''
           this.client = ''
           this.uid = ''
@@ -109,13 +112,3 @@ export default {
   }
 }
 </script>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
