@@ -35,7 +35,7 @@
 import axios from 'axios'
 export default {
   layout: 'before-login',
-  data ({ $config: { apiUrl } }) {
+  data ({ $config: { apiUrl }, $store }) {
     return {
       apiUrl,
       name: '',
@@ -50,7 +50,8 @@ export default {
       comment: '',
       posts: [],
       isValid: false,
-      loading: false
+      loading: false,
+      redirectPath: $store.state.loggedIn.redirectPath
     }
   },
   methods: {
@@ -68,6 +69,7 @@ export default {
           this.access_token = response.headers['access-token']
           this.client = response.headers.client
           this.uid = response.headers.uid
+          this.$router.push(this.redirectPath)
         })
     }
   }
