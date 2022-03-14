@@ -69,8 +69,8 @@ export default {
           this.access_token = response.headers['access-token']
           this.client = response.headers.client
           this.uid = response.headers.uid
-          this.$router.push(this.redirectPath)
         })
+      this.$router.push(this.redirectPath)
     }
   }
 }

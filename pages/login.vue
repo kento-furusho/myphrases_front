@@ -49,16 +49,18 @@ export default {
       tasks: [],
       comment: '',
       posts: [],
+      id: '',
       isValid: false,
       loading: false,
-      redirectPath: $store.state.loggedIn.redirectPath
+      redirectPath: $store.state.loggedIn.homePath
     }
   },
   methods: {
-    login (value) {
-      axios
+    async login (value) {
+      window.console.log(value)
+      window.console.log(this.email)
+      await axios
         .post(value + '/api/v1/auth/sign_in', {
-          name: this.name,
           email: this.email,
           password: this.password
         })
@@ -66,11 +68,12 @@ export default {
           localStorage.setItem('access-token', response.headers['access-token'])
           localStorage.setItem('client', response.headers.client)
           localStorage.setItem('uid', response.headers.uid)
+          localStorage.setItem('name', this.name)
           this.access_token = response.headers['access-token']
           this.client = response.headers.client
           this.uid = response.headers.uid
-          this.$router.push(this.redirectPath)
         })
+      this.$router.push(this.redirectPath)
     }
   }
 }

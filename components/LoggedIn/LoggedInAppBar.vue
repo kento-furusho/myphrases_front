@@ -6,7 +6,7 @@
     color="white"
   >
     <nuxt-link
-      :to="redirectPath"
+      :to="homePath"
       class="text-decoration-none black--text"
     >
       <app-title
@@ -21,7 +21,7 @@
 export default {
   data ({ $store }) {
     return {
-      redirectPath: $store.state.loggedIn.redirectPath
+      homePath: $store.state.loggedIn.homePath
     }
   }
 }

@@ -34,23 +34,22 @@
       <v-subheader>
         アカウント
       </v-subheader>
+      <!-- アカウント設定 -->
       <v-list-item
-        v-for="(menu, i) in menus"
-        :key="i"
-        :to="{ name: menu.name }"
+        to="/account/settings"
       >
         <v-list-item-icon
           class="mr-2"
         >
-          <v-icon
-            size="22"
-            v-text="menu.icon"
-          />
+          <v-icon size="22">
+            mdi-account
+          </v-icon>
         </v-list-item-icon>
         <v-list-item-title>
-          {{ $my.pageTitle(menu.name) }}
+          {{ $my.pageTitle('account-settings') }}
         </v-list-item-title>
       </v-list-item>
+      <!-- ログアウト -->
       <v-list-item @click="logout(apiUrl)">
         <v-list-item-icon
           class="mr-2"
@@ -71,10 +70,6 @@ import axios from 'axios'
 export default {
   data ({ $config: { apiUrl } }) {
     return {
-      menus: [
-        { name: 'account-settings', icon: 'mdi-account-cog' },
-        { name: 'account-password', icon: 'mdi-lock-outline' }
-      ],
       apiUrl,
       name: '',
       email: '',

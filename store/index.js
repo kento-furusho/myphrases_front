@@ -1,4 +1,4 @@
-const redirectPath = 'phrases'
+const homePath = 'phrases'
 
 // 変数
 export const state = () => ({
@@ -6,8 +6,8 @@ export const state = () => ({
     homeAppBarHeight: 56
   },
   loggedIn: {
-    redirectPath: {
-      name: redirectPath
+    homePath: {
+      name: homePath
     }
   }
 })
